@@ -17,49 +17,52 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 
 
 async function run() {
-  try {
-    // Connect the client to the server
-    await client.connect();
+    try {
+        // Connect the client to the server
+        await client.connect();
 
-    const database = client.db("personalService");
-    const serviceCollection = database.collection("service");
-
-
-    
-
-   
-
-    // single food  ---------------------------------
-    app.post('/service', async (req, res) => {
-      const serviceData = req.body;
-      const result = await serviceCollection.insertOne(serviceData)
-      res.send(result)
-    });
-    
-    app.get("/service", async (req, res) => {
-      const cursor = serviceCollection.find({});
-      const result = await cursor.toArray();
-      res.send(result);
-    });
-    
-      
+        const database = client.db("newLifeHospital");
+        const serviceCollection = database.collection("doctors");
 
 
-  } finally {
-    // Ensures that the client will close when you finish/error
-    // await client.close();
-  }
+
+
+
+
+        // single food  ---------------------------------
+        // app.post('/service', async (req, res) => {
+        //   const serviceData = req.body;
+        //   const result = await serviceCollection.insertOne(serviceData)
+        //   res.send(result)
+        // });
+
+        // app.get("/service", async (req, res) => {
+        //   const cursor = serviceCollection.find({});
+        //   const result = await cursor.toArray();
+        //   res.send(result);
+        // });
+
+
+
+
+       
+
+    } finally {
+        // Ensures that the client will close when you finish/error
+        // await client.close();
+    }
 }
 run().catch(console.dir);
 
 
 
 
-//test get -----------------------------------------------
+// test get -----------------------------------------------
 app.get('/', (req, res) => {
-  res.send('connected');
-})
+    res.send('connected');
+});
+
 // listening port -----------------------------------------
 app.listen(port, () => {
-  console.log('listening port', port);
+    console.log('listening port', port);
 });
